@@ -1,24 +1,36 @@
 {
-  "name": "hono_openapi_drizzle",
-  "scripts": {
-    "dev": "tsx watch src/index.ts",
-    "generate": "drizzle-kit generate:sqlite",
-    "migrate": "tsx migrate.ts",
-    "studio": "drizzle-kit studio"
-  },
-  "dependencies": {
-    "@hono/node-server": "^1.12.0",
-    "@hono/swagger-ui": "^0.4.0",
-    "@hono/zod-openapi": "^0.15.1",
-    "better-sqlite3": "^8.4.0",
-    "drizzle-orm": "^0.27.2",
-    "hono": "^4.5.1",
-    "zod": "^3.23.8"
-  },
-  "devDependencies": {
-    "@types/better-sqlite3": "^7.6.4",
-    "@types/node": "^20.11.17",
-    "drizzle-kit": "^0.19.6",
-    "tsx": "^4.7.1"
-  }
+    "name": "hono_openapi_drizzle",
+    "type": "module",
+    "scripts": {
+        "dev": "tsx watch src/index.ts",
+        "lint": "eslint . --max-warnings=10",
+        "test": "vitest . ",
+        "generate": "drizzle-kit generate",
+        "migrate": "tsx migrate.ts",
+        "seed": "tsx seed.ts",
+        "studio": "drizzle-kit studio"
+    },
+    "dependencies": {
+        "@hono/node-server": "^1.13.2",
+        "@hono/swagger-ui": "^0.4.1",
+        "@hono/zod-openapi": "^0.16.4",
+        "better-sqlite3": "^11.3.0",
+        "drizzle-orm": "^0.34.1",
+        "hono": "^4.6.5",
+        "zod": "^3.23.8"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.12.0",
+        "@types/better-sqlite3": "^7.6.11",
+        "@types/node": "^22.7.5",
+        "drizzle-kit": "^0.25.0",
+        "eslint": "^9.12.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-prettier": "^5.2.1",
+        "globals": "^15.11.0",
+        "prettier": "3.3.3",
+        "tsx": "^4.19.1",
+        "typescript-eslint": "^8.9.0",
+        "vitest": "^2.1.3"
+    }
 }

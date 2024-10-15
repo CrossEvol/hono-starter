@@ -1,10 +1,11 @@
-
 import { swaggerUI } from '@hono/swagger-ui'
 import { createRoute, OpenAPIHono, z } from '@hono/zod-openapi'
-import { UserSchema } from './zod.type'
-import { insertUserWithProject } from './database'
+import { logger } from 'hono/logger'
+import { getUsersWithProject } from './database'
+import { ProjectSchema, UserSchema } from './zod.type'
 
 const app = new OpenAPIHono()
+app.use(logger())
 
 app.openapi(
     createRoute({
@@ -27,7 +28,7 @@ app.openapi(
         return c.json({
             message: 'hello',
         })
-    }
+    },
 )
 
 app.openapi(
@@ -40,7 +41,11 @@ app.openapi(
                 content: {
                     'application/json': {
                         schema: z.object({
-                            data: z.array(UserSchema),
+                            data: z.array(
+                                UserSchema.extend({
+                                    projects: z.array(ProjectSchema),
+                                }),
+                            ),
                         }),
                     },
                 },
@@ -48,17 +53,17 @@ app.openapi(
         },
     }),
     async (c) => {
-        const res = await insertUserWithProject()
+        const res = await getUsersWithProject()
 
         return c.json({ data: res })
-    }
+    },
 )
 
 app.get(
     '/ui',
     swaggerUI({
         url: '/doc',
-    })
+    }),
 )
 
 app.doc('/doc', {
